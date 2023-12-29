@@ -7,6 +7,10 @@ $loginId = $_SESSION['youId'];
 
 $likeactorlist = array();
 
+
+// 배우 찜목록
+// 테이블에서 likeStatus가 1이고, 현재 로그인한 사용자의 youId와 일치하는 최대 3개의 레코드를 가져와 $likeactorlist 배열에 저장합니다
+
 $ACsql = "SELECT * FROM likeActor WHERE likeStatus = 1 AND youId = ? ORDER BY likeActorId DESC LIMIT 3";
 
 $stmt = $connect->prepare($ACsql);
@@ -36,6 +40,10 @@ if ($ACresult->num_rows > 0) {
 }
 
 // 뮤지컬 찜목록
+// 뮤지컬 좋아요 (likeMusical) 테이블과 theater 테이블을 조인하여, likeStatus가 1이고, 현재 로그인한 사용자의 youId와 일치하는 최대 3개의 레코드를 가져와 $likemusiclist 배열에 저장합니다.
+// SQL 쿼리에서 테이블 별칭 lm과 t를 사용합니다
+// INNER JOIN 키워드를 사용하여 likeMusical 테이블(lm)과 theater 테이블(t)을 결합합니다.
+// likeMusical 테이블의 likemuPlace 열과 theater 테이블의 thName 열을 비교하여 두 값이 일치하는 경우에 조인을 수행합니다.lm.likeStatus = 1은 likeMusical 테이블에서 likeStatus가 1인 행만을 대상으로 하며, lm.youId = ?는 사용자 ID가 특정 값과 일치하는 행만을 대상으로 합니다. ?는 나중에 바인딩할 매개변수를 나타냅니다.
 
 $likemusiclist = array();
 

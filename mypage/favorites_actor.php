@@ -12,8 +12,11 @@ $loginId = $_SESSION['youId'];
 // $ACresult = $connect->query($ACsql);
 $likeactorlist = array();
 
+// 사용자의 세션 정보를 기반으로 데이터베이스에서 배우 찜 목록을 가져옵니다 likeStatus가 1이면서 사용자 아이디(youId)에 해당하는 배우 찜 목록
 $ACsql = "SELECT * FROM likeActor WHERE likeStatus = 1 AND youId = ? ORDER BY likeActorId ASC";
 
+
+// 가져온 데이터를 PHP 배열에 저장해 출력합니다. 
 $stmt = $connect->prepare($ACsql);
 $stmt->bind_param("s", $loginId);
 $stmt->execute();
@@ -70,10 +73,10 @@ if ($ACresult->num_rows > 0) {
                         <?php for ($i = 0; $i < count($likeactorlist); $i++) {
                             if ($likeactorlist[$i]['likeACStatus'] == 1) { ?>
                                 <div class="favorites_cont-card">
-                                    <a href="../actor/category_ac_detail.php?actorId=<?= $likeactorlist[$i]['likeActorIdNum'] ?>" class="favorites_cont_img"><img src="<?= $likeactorlist[$i]['likeACImg']?>" alt="<?= $likeactorlist[$i]['likeACName']?>"></a>
-                                    <p><a href="../actor/category_ac_detail.php?actorId=<?= $likeactorlist[$i]['likeActorIdNum'] ?>" class="favorites_cont_title"><?= $likeactorlist[$i]['likeACName']?></a></p>
+                                    <a href="../actor/category_ac_detail.php?actorId=<?= $likeactorlist[$i]['likeActorIdNum'] ?>" class="favorites_cont_img"><img src="<?= $likeactorlist[$i]['likeACImg'] ?>" alt="<?= $likeactorlist[$i]['likeACName'] ?>"></a>
+                                    <p><a href="../actor/category_ac_detail.php?actorId=<?= $likeactorlist[$i]['likeActorIdNum'] ?>" class="favorites_cont_title"><?= $likeactorlist[$i]['likeACName'] ?></a></p>
                                 </div>
-                                <?php } ?>
+                            <?php } ?>
                         <?php } ?>
                     </div>
                 </div>
